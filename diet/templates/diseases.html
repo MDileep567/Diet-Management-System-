@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Deficiencies & Excess</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <h1 class="text-3xl font-bold text-center mb-6">Nutrition Deficiencies & Excess</h1>
+
+    <div id="diseaseContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Cards will be inserted here dynamically -->
+    </div>
+
+    <script>
+        const nutrients = [
+            {
+                name: "Calories",
+                color: "bg-red-500",
+                deficiency: {
+                    diseases: ["Malnutrition", "Weight Loss", "Fatigue", "Weak Immune System"],
+                    symptoms: ["Weakness", "Dizziness", "Low Energy", "Muscle Loss"],
+                },
+                excess: {
+                    diseases: ["Obesity", "Type 2 Diabetes", "Cardiovascular Disease"],
+                    symptoms: ["Weight Gain", "High Blood Sugar", "Heart Issues"],
+                },
+            },
+            {
+                name: "Fats",
+                color: "bg-yellow-500",
+                deficiency: {
+                    diseases: ["Dry Skin", "Hormonal Imbalance", "Fat-Soluble Vitamin Deficiencies"],
+                    symptoms: ["Dry Skin", "Hair Fall", "Weak Immunity", "Joint Pain"],
+                },
+                excess: {
+                    diseases: ["Heart Disease", "High Cholesterol", "Fatty Liver Disease"],
+                    symptoms: ["High Blood Pressure", "Clogged Arteries", "Obesity"],
+                },
+            },
+            {
+                name: "Proteins",
+                color: "bg-green-500",
+                deficiency: {
+                    diseases: ["Kwashiorkor", "Marasmus", "Muscle Wasting"],
+                    symptoms: ["Swollen Belly", "Weak Muscles", "Slow Growth", "Hair Loss"],
+                },
+                excess: {
+                    diseases: ["Kidney Damage", "Dehydration", "Digestive Issues"],
+                    symptoms: ["Kidney Strain", "Constipation", "Excessive Thirst"],
+                },
+            },
+            {
+                name: "Iron",
+                color: "bg-blue-500",
+                deficiency: {
+                    diseases: ["Anemia", "Fatigue Syndrome", "Weak Immune System"],
+                    symptoms: ["Pale Skin", "Dizziness", "Fatigue", "Shortness of Breath"],
+                },
+                excess: {
+                    diseases: ["Hemochromatosis", "Liver Damage"],
+                    symptoms: ["Joint Pain", "Liver Issues", "Diabetes Risk"],
+                },
+            },
+            {
+                name: "Calcium",
+                color: "bg-purple-500",
+                deficiency: {
+                    diseases: ["Osteoporosis", "Rickets", "Hypocalcemia"],
+                    symptoms: ["Weak Bones", "Muscle Cramps", "Fragile Nails"],
+                },
+                excess: {
+                    diseases: ["Kidney Stones", "Hypercalcemia"],
+                    symptoms: ["Nausea", "Kidney Pain", "Confusion"],
+                },
+            },
+            {
+                name: "Sodium",
+                color: "bg-orange-500",
+                deficiency: {
+                    diseases: ["Hyponatremia", "Dehydration"],
+                    symptoms: ["Fatigue", "Muscle Cramps", "Confusion"],
+                },
+                excess: {
+                    diseases: ["High Blood Pressure", "Stroke", "Heart Disease"],
+                    symptoms: ["Swelling", "Increased Thirst", "Headaches"],
+                },
+            },
+            {
+                name: "Potassium",
+                color: "bg-pink-500",
+                deficiency: {
+                    diseases: ["Hypokalemia", "Muscle Weakness"],
+                    symptoms: ["Irregular Heartbeat", "Muscle Cramps", "Fatigue"],
+                },
+                excess: {
+                    diseases: ["Hyperkalemia", "Kidney Dysfunction"],
+                    symptoms: ["Nausea", "Chest Pain", "Abnormal Heart Rhythm"],
+                },
+            },
+            {
+                name: "Carbohydrates",
+                color: "bg-indigo-500",
+                deficiency: {
+                    diseases: ["Ketosis", "Fatigue Syndrome"],
+                    symptoms: ["Weakness", "Dizziness", "Bad Breath", "Confusion"],
+                },
+                excess: {
+                    diseases: ["Diabetes", "Obesity", "Insulin Resistance"],
+                    symptoms: ["Sudden Weight Gain", "High Sugar Levels"],
+                },
+            },
+            {
+                name: "Fibre",
+                color: "bg-teal-500",
+                deficiency: {
+                    diseases: ["Constipation", "Colon Cancer Risk", "Hemorrhoids"],
+                    symptoms: ["Digestive Issues", "Bloating", "Weight Gain"],
+                },
+                excess: {
+                    diseases: ["Bloating", "Intestinal Gas", "Nutrient Malabsorption"],
+                    symptoms: ["Stomach Pain", "Diarrhea"],
+                },
+            },
+            {
+                name: "Vitamin D",
+                color: "bg-gray-500",
+                deficiency: {
+                    diseases: ["Rickets", "Osteomalacia"],
+                    symptoms: ["Bone Pain", "Muscle Weakness", "Depression"],
+                },
+                excess: {
+                    diseases: ["Hypercalcemia", "Kidney Stones"],
+                    symptoms: ["Weakness", "Vomiting", "Kidney Damage"],
+                },
+            },
+            {
+                name: "Sugars",
+                color: "bg-cyan-500",
+                excess: {
+                    diseases: ["Diabetes", "Tooth Decay", "Obesity", "Fatty Liver Disease"],
+                    symptoms: ["Weight Gain", "Skin Problems", "Mood Swings"],
+                },
+            },
+        ];
+
+        // Function to generate cards
+        function generateDiseaseCards() {
+            const container = document.getElementById("diseaseContainer");
+            container.innerHTML = ""; // Clear previous content
+
+            nutrients.forEach(nutrient => {
+                let card = `
+                    <div class="p-4 rounded-lg shadow-lg ${nutrient.color} text-white">
+                        <h2 class="text-xl font-bold">${nutrient.name}</h2>
+                        
+                        ${nutrient.deficiency ? `
+                            <div class="mt-2">
+                                <h3 class="font-semibold">Deficiency</h3>
+                                <p><strong>Diseases:</strong> ${nutrient.deficiency.diseases.join(", ")}</p>
+                                <p><strong>Symptoms:</strong> ${nutrient.deficiency.symptoms.join(", ")}</p>
+                            </div>
+                        ` : ""}
+                        
+                        ${nutrient.excess ? `
+                            <div class="mt-2">
+                                <h3 class="font-semibold">Excess</h3>
+                                <p><strong>Diseases:</strong> ${nutrient.excess.diseases.join(", ")}</p>
+                                <p><strong>Symptoms:</strong> ${nutrient.excess.symptoms.join(", ")}</p>
+                            </div>
+                        ` : ""}
+                    </div>
+                `;
+
+                container.innerHTML += card;
+            });
+        }
+
+        // Load the cards on page load
+        generateDiseaseCards();
+    </script>
+</body>
+</html>

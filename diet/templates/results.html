@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Results 🍎</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #ff4d4d;
+        }
+        h2 {
+            color: #ff6f61;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #ffe4e1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .bullet-chart {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            position: relative;
+        }
+        .bar {
+            width: 100%;
+            height: 25px;
+            background: #eee;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .intake {
+            height: 100%;
+            background: #ff6b6b;
+            text-align: right;
+            padding-right: 5px;
+            line-height: 25px;
+            font-weight: bold;
+            color: white;
+        }
+        .target {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            width: 3px;
+            background: black;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        table th {
+            background: #ffb6c1;
+            color: #333;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: #ff4d4d;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #e60000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nutrition Analysis Results 🍏</h1>
+
+        <div class="section">
+            <h2>🧑‍⚕️ Client Information</h2>
+            <p><strong>Name:</strong> {{ name }} 🏷️</p>
+            <p><strong>BMI:</strong> {{ bmi }} ⚖️</p>
+            <p><strong>BMI Category:</strong> {{ bmi_category }} 🏋️</p>
+        </div>
+
+        <div class="section">
+            <h2>⚠️ Deficiencies</h2>
+            {% if deficiencies %}
+                {% for nutrient, values in deficiencies.items() %}
+                <div>
+                    <p>🍽️ <strong>{{ nutrient }}:</strong> Intake: {{ values['intake'] }} / Target: {{ values['target'] }}</p>
+                    <div class="bullet-chart">
+                        <div class="bar">
+                            <div class="intake" style="width: {{ (values['intake'] / values['target']) * 100 }}%;">
+                                {{ values['intake'] }}
+                            </div>
+                            <div class="target"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>🎉 No deficiencies detected! Keep up the good work! 💪</p>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2>🍎 Food Recommendations</h2>
+            {% if recommendations %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>🍽️ Nutrient</th>
+                            <th>🥦 Food Item</th>
+                            <th>📊 Content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for nutrient, foods in recommendations.items() %}
+                            {% for food in foods %}
+                            <tr>
+                                <td>{{ nutrient }}</td>
+                                <td>🍉 {{ food['Food Item'] }}</td>
+                                <td>{{ food[nutrient] }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>⚡ No specific recommendations at the moment.</p>
+            {% endif %}
+        </div>
+
+        <!-- Button linking to diseases.html -->
+        <a href="diseases.html" class="btn">🔬 Check Related Diseases</a>
+        
+    </div>
+</body>
+</html>
